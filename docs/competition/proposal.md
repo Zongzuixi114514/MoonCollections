@@ -5,7 +5,7 @@
 | 项目 | 内容 |
 |------|------|
 | **项目名称** | MoonCollections：MoonBit 数据结构库（IndexMap + BitSet + OrderedSet） |
-| **GitHub 仓库** | https://github.com/oilleelssq-wq/mooncollections |
+| **GitHub 仓库** | https://github.com/Zongzuixi114514/MoonCollections |
 | **GitLink 仓库** | https://gitlink.org.cn/CC488/mooncollections |
 | **项目方向** | MoonBit 基础库 / 数据结构与集合 |
 | **是否为移植项目** | 是（参考 Rust indexmap crate 和 bit-set crate 设计） |
