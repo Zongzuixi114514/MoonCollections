@@ -1,0 +1,7 @@
+// import {
+//   "oilleelssq-wq/mooncollections" @lib,
+// }
+
+options(
+  "is-main": true,
+)
