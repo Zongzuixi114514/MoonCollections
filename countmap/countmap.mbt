@@ -146,6 +146,20 @@ pub fn[K : Hash + Eq] CountMap::from_array(arr : Array[K]) -> CountMap[K] {
   cm
 }
 
+/// Calculate the Shannon entropy of the distribution.
+pub fn[K : Hash + Eq] CountMap::entropy(self : CountMap[K]) -> Double {
+  let total = self.total().to_double()
+  guard total > 0.0 else { return 0.0 }
+  let mut entropy = 0.0
+  for v in self.inner.values() {
+    let p = v.to_double() / total
+    if p > 0.0 {
+      entropy = entropy - p * @math.ln(p)
+    }
+  }
+  entropy / @math.ln(2.0)
+}
+
 /// Implement `Show` for display.
 pub impl[K] Show for CountMap[K] with fn output(self, logger) -> Unit {
   logger.write_string("CountMap(keys=")

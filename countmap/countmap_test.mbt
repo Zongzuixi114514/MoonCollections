@@ -136,3 +136,23 @@ test "iter pairs" {
   }
   assert_eq!(total, 30)
 }
+
+test "entropy" {
+  let cm : @countmap.CountMap[String] = @countmap.CountMap::new()
+  cm.add("a", 1) |> ignore
+  cm.add("b", 1) |> ignore
+  let e = cm.entropy()
+  assert_true!(e > 0.9)
+  assert_true!(e < 1.1)
+}
+
+test "entropy empty" {
+  let cm : @countmap.CountMap[String] = @countmap.CountMap::new()
+  assert_eq!(cm.entropy(), 0.0)
+}
+
+test "entropy single" {
+  let cm : @countmap.CountMap[String] = @countmap.CountMap::new()
+  cm.add("x", 10) |> ignore
+  assert_eq!(cm.entropy(), 0.0)
+}
