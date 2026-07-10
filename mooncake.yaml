@@ -1,0 +1,14 @@
+name: mooncollections
+version: 0.1.2
+description: 综合性 MoonBit 数据结构库：IndexMap、OrderedSet、BitSet、BloomFilter、LRU Cache、UnionFind、CountMap — 7个模块，204个测试，纯MoonBit，零依赖
+repository: https://github.com/Zongzuixi114514/MoonCollections
+license: MIT
+keywords:
+  - datastructure
+  - indexmap
+  - bitset
+  - orderedset
+  - bloomfilter
+  - lrucache
+  - unionfind
+  - countmap

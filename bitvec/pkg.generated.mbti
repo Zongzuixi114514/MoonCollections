@@ -1,0 +1,28 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oilleelssq-wq/mooncollections/bitvec"
+
+// Values
+
+// Errors
+
+// Types and methods
+type BitVec
+pub fn BitVec::capacity(Self) -> Int
+pub fn BitVec::clear(Self, Int) -> Unit
+pub fn BitVec::clear_all(Self) -> Unit
+pub fn BitVec::count(Self) -> Int
+pub fn BitVec::has(Self, Int) -> Bool
+pub fn BitVec::is_empty(Self) -> Bool
+pub fn BitVec::iter(Self) -> Iter[Int]
+pub fn BitVec::max_bit(Self) -> Int?
+pub fn BitVec::new() -> Self
+pub fn BitVec::set(Self, Int) -> Unit
+pub fn BitVec::to_array(Self) -> Array[Int]
+pub fn BitVec::toggle(Self, Int) -> Unit
+pub fn BitVec::with_capacity(Int) -> Self
+pub impl Show for BitVec
+
+// Type aliases
+
+// Traits
+

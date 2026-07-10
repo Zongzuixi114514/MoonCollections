@@ -1,0 +1,24 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oilleelssq-wq/mooncollections/sparseset"
+
+// Values
+
+// Errors
+
+// Types and methods
+type SparseSet
+pub fn SparseSet::clear(Self) -> Unit
+pub fn SparseSet::contains(Self, Int) -> Bool
+pub fn SparseSet::insert(Self, Int) -> Bool
+pub fn SparseSet::is_empty(Self) -> Bool
+pub fn SparseSet::iter(Self) -> Iter[Int]
+pub fn SparseSet::length(Self) -> Int
+pub fn SparseSet::new(Int) -> Self
+pub fn SparseSet::remove(Self, Int) -> Bool
+pub fn SparseSet::to_array(Self) -> Array[Int]
+pub impl Show for SparseSet
+
+// Type aliases
+
+// Traits
+

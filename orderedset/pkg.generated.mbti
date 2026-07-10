@@ -1,0 +1,35 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oilleelssq-wq/mooncollections/orderedset"
+
+// Values
+
+// Errors
+
+// Types and methods
+type OrderedSet[K]
+pub fn[K : Hash + Eq] OrderedSet::add(Self[K], K) -> Bool
+pub fn[K : Hash + Eq] OrderedSet::clear(Self[K]) -> Unit
+pub fn[K : Hash + Eq] OrderedSet::contains(Self[K], K) -> Bool
+pub fn[K : Hash + Eq] OrderedSet::difference(Self[K], Self[K]) -> Self[K]
+pub fn[K : Hash + Eq] OrderedSet::first(Self[K]) -> K?
+pub fn[K : Hash + Eq] OrderedSet::from_array(Array[K]) -> Self[K]
+pub fn[K : Hash + Eq] OrderedSet::get_index(Self[K], Int) -> K?
+pub fn[K : Hash + Eq] OrderedSet::insert_at(Self[K], Int, K) -> Bool
+pub fn[K : Hash + Eq] OrderedSet::intersection(Self[K], Self[K]) -> Self[K]
+pub fn[K] OrderedSet::is_empty(Self[K]) -> Bool
+pub fn[K : Hash + Eq] OrderedSet::is_subset(Self[K], Self[K]) -> Bool
+pub fn[K : Hash + Eq] OrderedSet::is_superset(Self[K], Self[K]) -> Bool
+pub fn[K : Hash + Eq] OrderedSet::iter(Self[K]) -> Iter[K]
+pub fn[K : Hash + Eq] OrderedSet::last(Self[K]) -> K?
+pub fn[K] OrderedSet::length(Self[K]) -> Int
+pub fn[K : Hash + Eq] OrderedSet::new() -> Self[K]
+pub fn[K : Hash + Eq] OrderedSet::remove(Self[K], K) -> Bool
+pub fn[K : Hash + Eq] OrderedSet::symmetric_difference(Self[K], Self[K]) -> Self[K]
+pub fn[K : Hash + Eq] OrderedSet::union(Self[K], Self[K]) -> Self[K]
+pub impl[K : Hash + Eq] Eq for OrderedSet[K]
+pub impl[K] Show for OrderedSet[K]
+
+// Type aliases
+
+// Traits
+

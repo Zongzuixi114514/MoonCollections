@@ -1,0 +1,41 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oilleelssq-wq/mooncollections/indexmap"
+
+// Values
+
+// Errors
+
+// Types and methods
+type IndexMap[K, V]
+pub fn[K : Hash + Eq, V] IndexMap::clear(Self[K, V]) -> Unit
+pub fn[K : Hash + Eq, V] IndexMap::contains(Self[K, V], K) -> Bool
+pub fn[K : Hash + Eq, V] IndexMap::first(Self[K, V]) -> (K, V)?
+pub fn[K : Hash + Eq, V] IndexMap::from_array(Array[(K, V)]) -> Self[K, V]
+pub fn[K : Hash + Eq, V] IndexMap::get(Self[K, V], K) -> V?
+pub fn[K : Hash + Eq, V] IndexMap::get_index(Self[K, V], Int) -> (K, V)?
+pub fn[K, V] IndexMap::get_key(Self[K, V], Int) -> K?
+pub fn[K : Hash + Eq, V] IndexMap::get_or_init(Self[K, V], K, () -> V) -> V
+pub fn[K : Hash + Eq, V] IndexMap::get_value(Self[K, V], Int) -> V?
+pub fn[K, V] IndexMap::is_empty(Self[K, V]) -> Bool
+pub fn[K : Hash + Eq, V] IndexMap::iter(Self[K, V]) -> Iter[(K, V)]
+pub fn[K : Hash + Eq, V] IndexMap::iter_rev(Self[K, V]) -> Iter[(K, V)]
+pub fn[K, V] IndexMap::keys(Self[K, V]) -> Iter[K]
+pub fn[K : Hash + Eq, V] IndexMap::last(Self[K, V]) -> (K, V)?
+pub fn[K, V] IndexMap::length(Self[K, V]) -> Int
+pub fn[K : Hash + Eq, V] IndexMap::new() -> Self[K, V]
+pub fn[K : Hash + Eq, V] IndexMap::pop(Self[K, V]) -> (K, V)?
+pub fn[K : Hash + Eq, V] IndexMap::remove(Self[K, V], K) -> V?
+pub fn[K : Hash + Eq, V] IndexMap::retain(Self[K, V], (K, V) -> Bool) -> Unit
+pub fn[K : Hash + Eq, V] IndexMap::set(Self[K, V], K, V) -> Unit
+pub fn[K : Hash + Eq, V] IndexMap::shift_remove(Self[K, V], Int) -> (K, V)?
+pub fn[K : Hash + Eq, V] IndexMap::sort_keys(Self[K, V], (K, K) -> Int) -> Unit
+pub fn[K : Hash + Eq, V] IndexMap::swap_remove(Self[K, V], Int) -> (K, V)?
+pub fn[K : Hash + Eq, V] IndexMap::to_array(Self[K, V]) -> Array[(K, V)]
+pub fn[K : Hash + Eq, V] IndexMap::values(Self[K, V]) -> Iter[V]
+pub impl[K : Hash + Eq, V : Eq] Eq for IndexMap[K, V]
+pub impl[K, V] Show for IndexMap[K, V]
+
+// Type aliases
+
+// Traits
+

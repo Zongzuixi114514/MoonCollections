@@ -1,6 +1,6 @@
-name = "oilleelssq-wq/mooncollections"
+name = "Zongzuixi114514/mooncollections"
 
-version = "0.1.0"
+version = "0.1.2"
 
 readme = "README.md"
 
@@ -19,4 +19,4 @@ keywords = [
   "countmap",
 ]
 
-description = "A comprehensive data structure library for MoonBit: IndexMap, OrderedSet, BitSet, BloomFilter, LRU Cache, UnionFind, CountMap — 7 modules, 158 tests, pure MoonBit, zero dependencies"
+description = "A comprehensive data structure library for MoonBit: IndexMap, OrderedSet, BitSet, BloomFilter, LRU Cache, UnionFind, CountMap — 7 modules, 204 tests, pure MoonBit, zero dependencies"
