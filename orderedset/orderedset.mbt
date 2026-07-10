@@ -1,18 +1,20 @@
+///|
 /// OrderedSet — a set that preserves insertion order.
 ///
 /// Built on top of `IndexMap`, it combines fast `HashMap` lookups with
 /// ordered iteration. Elements are iterated in the order they were first
 /// inserted.
-
 struct OrderedSet[K] {
   inner : @indexmap.IndexMap[K, Unit]
 }
 
+///|
 /// Create a new, empty OrderedSet.
 pub fn[K : Hash + Eq] OrderedSet::new() -> OrderedSet[K] {
   { inner: @indexmap.IndexMap::new() }
 }
 
+///|
 /// Insert an element. Returns `true` if the element was newly inserted,
 /// `false` if it already existed.
 pub fn[K : Hash + Eq] OrderedSet::add(self : OrderedSet[K], value : K) -> Bool {
@@ -24,37 +26,52 @@ pub fn[K : Hash + Eq] OrderedSet::add(self : OrderedSet[K], value : K) -> Bool {
   }
 }
 
+///|
 /// Remove an element. Returns `true` if the element was present.
-pub fn[K : Hash + Eq] OrderedSet::remove(self : OrderedSet[K], value : K) -> Bool {
+pub fn[K : Hash + Eq] OrderedSet::remove(
+  self : OrderedSet[K],
+  value : K,
+) -> Bool {
   match self.inner.remove(value) {
     Some(_) => true
     None => false
   }
 }
 
+///|
 /// Check if the set contains the given value.
-pub fn[K : Hash + Eq] OrderedSet::contains(self : OrderedSet[K], value : K) -> Bool {
+pub fn[K : Hash + Eq] OrderedSet::contains(
+  self : OrderedSet[K],
+  value : K,
+) -> Bool {
   self.inner.contains(value)
 }
 
+///|
 /// Return the number of elements in the set.
 pub fn[K] OrderedSet::length(self : OrderedSet[K]) -> Int {
   self.inner.length()
 }
 
+///|
 /// Check if the set is empty.
 pub fn[K] OrderedSet::is_empty(self : OrderedSet[K]) -> Bool {
   self.inner.is_empty()
 }
 
+///|
 /// Get the element at the given position index.
-pub fn[K : Hash + Eq] OrderedSet::get_index(self : OrderedSet[K], index : Int) -> K? {
+pub fn[K : Hash + Eq] OrderedSet::get_index(
+  self : OrderedSet[K],
+  index : Int,
+) -> K? {
   match self.inner.get_index(index) {
     Some((k, _)) => Some(k)
     None => None
   }
 }
 
+///|
 /// Return the first element in insertion order.
 pub fn[K : Hash + Eq] OrderedSet::first(self : OrderedSet[K]) -> K? {
   match self.inner.first() {
@@ -63,6 +80,7 @@ pub fn[K : Hash + Eq] OrderedSet::first(self : OrderedSet[K]) -> K? {
   }
 }
 
+///|
 /// Return the last element in insertion order.
 pub fn[K : Hash + Eq] OrderedSet::last(self : OrderedSet[K]) -> K? {
   match self.inner.last() {
@@ -71,16 +89,19 @@ pub fn[K : Hash + Eq] OrderedSet::last(self : OrderedSet[K]) -> K? {
   }
 }
 
+///|
 /// Remove all elements from the set.
 pub fn[K : Hash + Eq] OrderedSet::clear(self : OrderedSet[K]) -> Unit {
   self.inner.clear()
 }
 
+///|
 /// Return an iterator over elements in insertion order.
 pub fn[K : Hash + Eq] OrderedSet::iter(self : OrderedSet[K]) -> Iter[K] {
   self.inner.keys()
 }
 
+///|
 /// Create an OrderedSet from an array, preserving input order.
 pub fn[K : Hash + Eq] OrderedSet::from_array(arr : Array[K]) -> OrderedSet[K] {
   let set = OrderedSet::new()
@@ -90,9 +111,13 @@ pub fn[K : Hash + Eq] OrderedSet::from_array(arr : Array[K]) -> OrderedSet[K] {
   set
 }
 
+///|
 /// Return a new OrderedSet that is the union of `self` and `other`.
 /// Elements retain the order of `self` followed by new elements from `other`.
-pub fn[K : Hash + Eq] OrderedSet::union(self : OrderedSet[K], other : OrderedSet[K]) -> OrderedSet[K] {
+pub fn[K : Hash + Eq] OrderedSet::union(
+  self : OrderedSet[K],
+  other : OrderedSet[K],
+) -> OrderedSet[K] {
   let result = OrderedSet::new()
   for k in self.iter() {
     result.add(k) |> ignore
@@ -103,6 +128,7 @@ pub fn[K : Hash + Eq] OrderedSet::union(self : OrderedSet[K], other : OrderedSet
   result
 }
 
+///|
 /// Return a new OrderedSet that is the intersection of `self` and `other`.
 /// Elements retain the order of `self`.
 pub fn[K : Hash + Eq] OrderedSet::intersection(
@@ -118,6 +144,7 @@ pub fn[K : Hash + Eq] OrderedSet::intersection(
   result
 }
 
+///|
 /// Return a new OrderedSet that is the difference (`self` \ `other`).
 pub fn[K : Hash + Eq] OrderedSet::difference(
   self : OrderedSet[K],
@@ -125,13 +152,14 @@ pub fn[K : Hash + Eq] OrderedSet::difference(
 ) -> OrderedSet[K] {
   let result = OrderedSet::new()
   for k in self.iter() {
-    if not(other.contains(k)) {
+    if !other.contains(k) {
       result.add(k) |> ignore
     }
   }
   result
 }
 
+///|
 /// Return a new OrderedSet that is the symmetric difference of `self` and `other`.
 pub fn[K : Hash + Eq] OrderedSet::symmetric_difference(
   self : OrderedSet[K],
@@ -139,31 +167,33 @@ pub fn[K : Hash + Eq] OrderedSet::symmetric_difference(
 ) -> OrderedSet[K] {
   let result = OrderedSet::new()
   for k in self.iter() {
-    if not(other.contains(k)) {
+    if !other.contains(k) {
       result.add(k) |> ignore
     }
   }
   for k in other.iter() {
-    if not(self.contains(k)) {
+    if !self.contains(k) {
       result.add(k) |> ignore
     }
   }
   result
 }
 
+///|
 /// Check if `self` is a subset of `other`.
 pub fn[K : Hash + Eq] OrderedSet::is_subset(
   self : OrderedSet[K],
   other : OrderedSet[K],
 ) -> Bool {
   for k in self.iter() {
-    if not(other.contains(k)) {
+    if !other.contains(k) {
       return false
     }
   }
   true
 }
 
+///|
 /// Check if `self` is a superset of `other`.
 pub fn[K : Hash + Eq] OrderedSet::is_superset(
   self : OrderedSet[K],
@@ -172,6 +202,7 @@ pub fn[K : Hash + Eq] OrderedSet::is_superset(
   other.is_subset(self)
 }
 
+///|
 /// Insert or replace an element at a specific index. Shifts subsequent elements.
 pub fn[K : Hash + Eq] OrderedSet::insert_at(
   self : OrderedSet[K],
@@ -205,6 +236,7 @@ pub fn[K : Hash + Eq] OrderedSet::insert_at(
   }
 }
 
+///|
 /// Implement `Eq` for comparing two OrderedSets.
 pub impl[K : Hash + Eq] Eq for OrderedSet[K] with fn equal(
   self : OrderedSet[K],
@@ -217,6 +249,7 @@ pub impl[K : Hash + Eq] Eq for OrderedSet[K] with fn equal(
   true
 }
 
+///|
 /// Implement `Show` for display.
 pub impl[K] Show for OrderedSet[K] with fn output(self, logger) -> Unit {
   logger.write_string("OrderedSet(length=")

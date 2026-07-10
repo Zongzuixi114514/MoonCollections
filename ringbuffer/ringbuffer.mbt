@@ -1,8 +1,8 @@
+///|
 /// RingBuffer — a fixed-size circular queue.
 ///
 /// When full, new writes overwrite the oldest data. Useful for streaming
 /// windows, log buffers, and sliding-window algorithms.
-
 struct RingBuffer[T] {
   data : Array[T?]
   mut head : Int
@@ -11,6 +11,7 @@ struct RingBuffer[T] {
   capacity : Int
 }
 
+///|
 /// Create a new RingBuffer with the given capacity.
 pub fn[T] RingBuffer::new(capacity : Int) -> RingBuffer[T] {
   {
@@ -18,10 +19,11 @@ pub fn[T] RingBuffer::new(capacity : Int) -> RingBuffer[T] {
     head: 0,
     tail: 0,
     count: 0,
-    capacity: capacity,
+    capacity,
   }
 }
 
+///|
 /// Push an element. If full, overwrites the oldest element.
 pub fn[T] RingBuffer::push(self : RingBuffer[T], value : T) -> Unit {
   self.data[self.tail] = Some(value)
@@ -33,6 +35,7 @@ pub fn[T] RingBuffer::push(self : RingBuffer[T], value : T) -> Unit {
   }
 }
 
+///|
 /// Remove and return the oldest element.
 pub fn[T] RingBuffer::pop(self : RingBuffer[T]) -> T? {
   guard self.count > 0 else { return None }
@@ -43,12 +46,14 @@ pub fn[T] RingBuffer::pop(self : RingBuffer[T]) -> T? {
   value
 }
 
+///|
 /// Peek at the oldest element without removing it.
 pub fn[T] RingBuffer::peek(self : RingBuffer[T]) -> T? {
   guard self.count > 0 else { return None }
   self.data[self.head]
 }
 
+///|
 /// Peek at the newest element without removing it.
 pub fn[T] RingBuffer::peek_last(self : RingBuffer[T]) -> T? {
   guard self.count > 0 else { return None }
@@ -56,26 +61,31 @@ pub fn[T] RingBuffer::peek_last(self : RingBuffer[T]) -> T? {
   self.data[idx]
 }
 
+///|
 /// Return the number of elements in the buffer.
 pub fn[T] RingBuffer::length(self : RingBuffer[T]) -> Int {
   self.count
 }
 
+///|
 /// Check if the buffer is empty.
 pub fn[T] RingBuffer::is_empty(self : RingBuffer[T]) -> Bool {
   self.count == 0
 }
 
+///|
 /// Check if the buffer is full.
 pub fn[T] RingBuffer::is_full(self : RingBuffer[T]) -> Bool {
   self.count == self.capacity
 }
 
+///|
 /// Return the capacity of the buffer.
 pub fn[T] RingBuffer::capacity(self : RingBuffer[T]) -> Int {
   self.capacity
 }
 
+///|
 /// Remove all elements from the buffer.
 pub fn[T] RingBuffer::clear(self : RingBuffer[T]) -> Unit {
   for i in 0..<self.capacity {
@@ -86,26 +96,26 @@ pub fn[T] RingBuffer::clear(self : RingBuffer[T]) -> Unit {
   self.count = 0
 }
 
+///|
 /// Return an iterator over elements from oldest to newest.
 pub fn[T] RingBuffer::iter(self : RingBuffer[T]) -> Iter[T] {
   let mut i = 0
   let total = self.count
-  Iter::new(
-    fn() {
-      while i < total {
-        let idx = (self.head + i) % self.capacity
-        i = i + 1
-        match self.data[idx] {
-          Some(v) => return Some(v)
-          None => ()
-        }
-      } nobreak {
-        None
+  Iter::new(fn() {
+    while i < total {
+      let idx = (self.head + i) % self.capacity
+      i = i + 1
+      match self.data[idx] {
+        Some(v) => return Some(v)
+        None => ()
       }
-    },
-  )
+    } nobreak {
+      None
+    }
+  })
 }
 
+///|
 /// Return all elements as an array, oldest first.
 pub fn[T] RingBuffer::to_array(self : RingBuffer[T]) -> Array[T] {
   let result : Array[T] = []
@@ -115,6 +125,7 @@ pub fn[T] RingBuffer::to_array(self : RingBuffer[T]) -> Array[T] {
   result
 }
 
+///|
 /// Implement `Show` for display.
 pub impl[T] Show for RingBuffer[T] with fn output(self, logger) -> Unit {
   logger.write_string("RingBuffer(len=")

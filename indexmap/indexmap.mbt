@@ -1,21 +1,27 @@
+///|
 /// IndexMap — a hash map that preserves insertion order.
 ///
 /// Combines the fast key lookups of a `HashMap` with the ordered iteration
 /// of an `Array`. Keys are iterated in the order they were first inserted.
-
 struct IndexMap[K, V] {
   mut map : @hashmap.HashMap[K, (Int, V)]
   mut keys : Array[K]
 }
 
+///|
 /// Create a new, empty IndexMap.
 pub fn[K : Hash + Eq, V] IndexMap::new() -> IndexMap[K, V] {
   { map: @hashmap.HashMap([], capacity=8), keys: [] }
 }
 
+///|
 /// Insert or update a key-value pair. If the key already exists, only the value
 /// is updated and the key keeps its original position.
-pub fn[K : Hash + Eq, V] IndexMap::set(self : IndexMap[K, V], key : K, value : V) -> Unit {
+pub fn[K : Hash + Eq, V] IndexMap::set(
+  self : IndexMap[K, V],
+  key : K,
+  value : V,
+) -> Unit {
   match self.map.get(key) {
     Some((idx, _)) => self.map.set(key, (idx, value))
     None => {
@@ -26,6 +32,7 @@ pub fn[K : Hash + Eq, V] IndexMap::set(self : IndexMap[K, V], key : K, value : V
   }
 }
 
+///|
 /// Get the value associated with a key.
 pub fn[K : Hash + Eq, V] IndexMap::get(self : IndexMap[K, V], key : K) -> V? {
   match self.map.get(key) {
@@ -34,8 +41,12 @@ pub fn[K : Hash + Eq, V] IndexMap::get(self : IndexMap[K, V], key : K) -> V? {
   }
 }
 
+///|
 /// Get the key-value pair at the given position index.
-pub fn[K : Hash + Eq, V] IndexMap::get_index(self : IndexMap[K, V], index : Int) -> (K, V)? {
+pub fn[K : Hash + Eq, V] IndexMap::get_index(
+  self : IndexMap[K, V],
+  index : Int,
+) -> (K, V)? {
   if 0 <= index && index < self.keys.length() {
     let key = self.keys[index]
     match self.map.get(key) {
@@ -47,6 +58,7 @@ pub fn[K : Hash + Eq, V] IndexMap::get_index(self : IndexMap[K, V], index : Int)
   }
 }
 
+///|
 /// Get the key at the given position index.
 pub fn[K, V] IndexMap::get_key(self : IndexMap[K, V], index : Int) -> K? {
   if 0 <= index && index < self.keys.length() {
@@ -56,8 +68,12 @@ pub fn[K, V] IndexMap::get_key(self : IndexMap[K, V], index : Int) -> K? {
   }
 }
 
+///|
 /// Get the value at the given position index.
-pub fn[K : Hash + Eq, V] IndexMap::get_value(self : IndexMap[K, V], index : Int) -> V? {
+pub fn[K : Hash + Eq, V] IndexMap::get_value(
+  self : IndexMap[K, V],
+  index : Int,
+) -> V? {
   if 0 <= index && index < self.keys.length() {
     self.get(self.keys[index])
   } else {
@@ -65,21 +81,28 @@ pub fn[K : Hash + Eq, V] IndexMap::get_value(self : IndexMap[K, V], index : Int)
   }
 }
 
+///|
 /// Check if the map contains the given key.
-pub fn[K : Hash + Eq, V] IndexMap::contains(self : IndexMap[K, V], key : K) -> Bool {
+pub fn[K : Hash + Eq, V] IndexMap::contains(
+  self : IndexMap[K, V],
+  key : K,
+) -> Bool {
   self.map.contains(key)
 }
 
+///|
 /// Return the number of entries in the map.
 pub fn[K, V] IndexMap::length(self : IndexMap[K, V]) -> Int {
   self.keys.length()
 }
 
+///|
 /// Check if the map is empty.
 pub fn[K, V] IndexMap::is_empty(self : IndexMap[K, V]) -> Bool {
   self.keys.length() == 0
 }
 
+///|
 /// Remove a key-value pair by key. Returns the removed value, or None.
 /// Remaining entries are shifted to fill the gap (O(n)).
 pub fn[K : Hash + Eq, V] IndexMap::remove(self : IndexMap[K, V], key : K) -> V? {
@@ -104,6 +127,7 @@ pub fn[K : Hash + Eq, V] IndexMap::remove(self : IndexMap[K, V], key : K) -> V? 
   }
 }
 
+///|
 /// Remove the key-value pair at the given position index using swap-remove (O(1)).
 /// The last element is moved into the removed position.
 pub fn[K : Hash + Eq, V] IndexMap::swap_remove(
@@ -133,6 +157,7 @@ pub fn[K : Hash + Eq, V] IndexMap::swap_remove(
   }
 }
 
+///|
 /// Remove the key-value pair at the given position index, shifting all
 /// subsequent entries to fill the gap (O(n)). Preserves order.
 pub fn[K : Hash + Eq, V] IndexMap::shift_remove(
@@ -164,68 +189,67 @@ pub fn[K : Hash + Eq, V] IndexMap::shift_remove(
   }
 }
 
+///|
 /// Return an iterator over key-value pairs in insertion order.
 pub fn[K : Hash + Eq, V] IndexMap::iter(self : IndexMap[K, V]) -> Iter[(K, V)] {
   let mut i = 0
   let len = self.keys.length()
-  Iter::new(
-    fn() {
-      while i < len {
-        let key = self.keys[i]
-        i = i + 1
-        match self.map.get(key) {
-          Some((_, v)) => return Some((key, v))
-          None => ()
-        }
-      } nobreak {
-        None
+  Iter::new(fn() {
+    while i < len {
+      let key = self.keys[i]
+      i = i + 1
+      match self.map.get(key) {
+        Some((_, v)) => return Some((key, v))
+        None => ()
       }
-    },
-  )
+    } nobreak {
+      None
+    }
+  })
 }
 
+///|
 /// Return an iterator over keys in insertion order.
 pub fn[K, V] IndexMap::keys(self : IndexMap[K, V]) -> Iter[K] {
   let mut i = 0
   let len = self.keys.length()
-  Iter::new(
-    fn() {
-      while i < len {
-        let key = self.keys[i]
-        i = i + 1
-        return Some(key)
-      } nobreak {
-        None
-      }
-    },
-  )
+  Iter::new(fn() {
+    while i < len {
+      let key = self.keys[i]
+      i = i + 1
+      return Some(key)
+    } nobreak {
+      None
+    }
+  })
 }
 
+///|
 /// Return an iterator over values in insertion order.
 pub fn[K : Hash + Eq, V] IndexMap::values(self : IndexMap[K, V]) -> Iter[V] {
   let mut i = 0
   let len = self.keys.length()
-  Iter::new(
-    fn() {
-      while i < len {
-        let key = self.keys[i]
-        i = i + 1
-        match self.map.get(key) {
-          Some((_, v)) => return Some(v)
-          None => ()
-        }
-      } nobreak {
-        None
+  Iter::new(fn() {
+    while i < len {
+      let key = self.keys[i]
+      i = i + 1
+      match self.map.get(key) {
+        Some((_, v)) => return Some(v)
+        None => ()
       }
-    },
-  )
+    } nobreak {
+      None
+    }
+  })
 }
 
+///|
 /// Return the first key-value pair in insertion order, or None if empty.
 pub fn[K : Hash + Eq, V] IndexMap::first(self : IndexMap[K, V]) -> (K, V)? {
   self.get_index(0)
 }
 
+///|
 /// Return the last key-value pair in insertion order, or None if empty.
 pub fn[K : Hash + Eq, V] IndexMap::last(self : IndexMap[K, V]) -> (K, V)? {
   let len = self.keys.length()
@@ -236,14 +260,18 @@ pub fn[K : Hash + Eq, V] IndexMap::last(self : IndexMap[K, V]) -> (K, V)? {
   }
 }
 
+///|
 /// Remove all entries from the map.
 pub fn[K : Hash + Eq, V] IndexMap::clear(self : IndexMap[K, V]) -> Unit {
   self.map = @hashmap.HashMap([], capacity=8)
   self.keys = []
 }
 
+///|
 /// Create an IndexMap from an array of key-value pairs.
-pub fn[K : Hash + Eq, V] IndexMap::from_array(arr : Array[(K, V)]) -> IndexMap[K, V] {
+pub fn[K : Hash + Eq, V] IndexMap::from_array(
+  arr : Array[(K, V)],
+) -> IndexMap[K, V] {
   let m = IndexMap::new()
   for i in 0..<arr.length() {
     let (k, v) = arr[i]
@@ -252,6 +280,7 @@ pub fn[K : Hash + Eq, V] IndexMap::from_array(arr : Array[(K, V)]) -> IndexMap[K
   m
 }
 
+///|
 /// Remove all entries that do NOT satisfy the predicate.
 /// Entries passing the predicate keep their relative order.
 pub fn[K : Hash + Eq, V] IndexMap::retain(
@@ -263,7 +292,7 @@ pub fn[K : Hash + Eq, V] IndexMap::retain(
     let key = self.keys[i]
     match self.map.get(key) {
       Some((_, v)) =>
-        if not(predicate(key, v)) {
+        if !predicate(key, v) {
           self.map.remove(key)
           let last = self.keys.length() - 1
           if i < last {
@@ -280,32 +309,32 @@ pub fn[K : Hash + Eq, V] IndexMap::retain(
         } else {
           i = i + 1
         }
-      None => {
-        self.keys.remove(i) |> ignore
-      }
+      None => self.keys.remove(i) |> ignore
     }
   }
 }
 
+///|
 /// Return an iterator over key-value pairs in reverse insertion order.
-pub fn[K : Hash + Eq, V] IndexMap::iter_rev(self : IndexMap[K, V]) -> Iter[(K, V)] {
+pub fn[K : Hash + Eq, V] IndexMap::iter_rev(
+  self : IndexMap[K, V],
+) -> Iter[(K, V)] {
   let mut i = self.keys.length() - 1
-  Iter::new(
-    fn() {
-      while i >= 0 {
-        let key = self.keys[i]
-        i = i - 1
-        match self.map.get(key) {
-          Some((_, v)) => return Some((key, v))
-          None => ()
-        }
-      } nobreak {
-        None
+  Iter::new(fn() {
+    while i >= 0 {
+      let key = self.keys[i]
+      i = i - 1
+      match self.map.get(key) {
+        Some((_, v)) => return Some((key, v))
+        None => ()
       }
-    },
-  )
+    } nobreak {
+      None
+    }
+  })
 }
 
+///|
 /// Sort the entries by key using the given comparison function.
 /// This changes the internal order permanently.
 pub fn[K : Hash + Eq, V] IndexMap::sort_keys(
@@ -335,6 +364,7 @@ pub fn[K : Hash + Eq, V] IndexMap::sort_keys(
   }
 }
 
+///|
 /// Remove and return the last key-value pair.
 pub fn[K : Hash + Eq, V] IndexMap::pop(self : IndexMap[K, V]) -> (K, V)? {
   let len = self.keys.length()
@@ -352,8 +382,11 @@ pub fn[K : Hash + Eq, V] IndexMap::pop(self : IndexMap[K, V]) -> (K, V)? {
   }
 }
 
+///|
 /// Convert the map to an array of key-value pairs in insertion order.
-pub fn[K : Hash + Eq, V] IndexMap::to_array(self : IndexMap[K, V]) -> Array[(K, V)] {
+pub fn[K : Hash + Eq, V] IndexMap::to_array(
+  self : IndexMap[K, V],
+) -> Array[(K, V)] {
   let result = []
   for kv in self.iter() {
     result.push(kv)
@@ -361,6 +394,7 @@ pub fn[K : Hash + Eq, V] IndexMap::to_array(self : IndexMap[K, V]) -> Array[(K, 
   result
 }
 
+///|
 /// Get or insert a value. If the key exists, returns the existing value.
 /// If not, calls `init` to create a new value, inserts it, and returns it.
 pub fn[K : Hash + Eq, V] IndexMap::get_or_init(
@@ -378,6 +412,7 @@ pub fn[K : Hash + Eq, V] IndexMap::get_or_init(
   }
 }
 
+///|
 /// Implement `Show` for display.
 pub impl[K, V] Show for IndexMap[K, V] with fn output(
   self : IndexMap[K, V],
@@ -388,6 +423,7 @@ pub impl[K, V] Show for IndexMap[K, V] with fn output(
   logger.write_string(")")
 }
 
+///|
 /// Implement `Eq` for comparing two IndexMaps. Two maps are equal if they
 /// have the same length and contain the same key-value pairs.
 pub impl[K : Hash + Eq, V : Eq] Eq for IndexMap[K, V] with fn equal(

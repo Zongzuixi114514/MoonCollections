@@ -1,32 +1,32 @@
+///|
 /// Trie — a prefix tree for efficient string storage and lookup.
 ///
 /// Supports insertion, deletion, prefix search, and autocomplete suggestions.
 /// Uses Int keys (character codes) for HashMap compatibility.
-
 struct TrieNode {
   children : @hashmap.HashMap[Int, TrieNode]
   mut is_end : Bool
   mut count : Int
 }
 
+///|
 struct Trie {
   mut root : TrieNode
   mut size : Int
 }
 
+///|
 fn new_node() -> TrieNode {
-  {
-    children: @hashmap.HashMap([], capacity=4),
-    is_end: false,
-    count: 0,
-  }
+  { children: @hashmap.HashMap([], capacity=4), is_end: false, count: 0 }
 }
 
+///|
 /// Create a new, empty Trie.
 pub fn Trie::new() -> Trie {
   { root: new_node(), size: 0 }
 }
 
+///|
 /// Insert a word into the Trie. Returns `true` if newly added.
 pub fn Trie::insert(self : Trie, word : String) -> Bool {
   let mut node = self.root
@@ -54,6 +54,7 @@ pub fn Trie::insert(self : Trie, word : String) -> Bool {
   }
 }
 
+///|
 /// Check if a word exists in the Trie.
 pub fn Trie::contains(self : Trie, word : String) -> Bool {
   match self.search_node(word) {
@@ -62,16 +63,19 @@ pub fn Trie::contains(self : Trie, word : String) -> Bool {
   }
 }
 
+///|
 /// Check if any word in the Trie starts with the given prefix.
 pub fn Trie::starts_with(self : Trie, prefix : String) -> Bool {
-  self.search_node(prefix).is_some()
+  self.search_node(prefix) is Some(_)
 }
 
+///|
 /// Return the number of words in the Trie.
 pub fn Trie::length(self : Trie) -> Int {
   self.size
 }
 
+///|
 /// Return the number of words that have the given prefix.
 pub fn Trie::count_prefix(self : Trie, prefix : String) -> Int {
   match self.search_node(prefix) {
@@ -80,6 +84,7 @@ pub fn Trie::count_prefix(self : Trie, prefix : String) -> Int {
   }
 }
 
+///|
 /// Remove a word from the Trie. Returns `true` if the word was present.
 pub fn Trie::remove(self : Trie, word : String) -> Bool {
   let len = word.length()
@@ -91,6 +96,7 @@ pub fn Trie::remove(self : Trie, word : String) -> Bool {
   deleted
 }
 
+///|
 fn Trie::remove_from(
   self : Trie,
   node : TrieNode,
@@ -108,7 +114,7 @@ fn Trie::remove_from(
     Some(child) => {
       child.count = child.count - 1
       let result = self.remove_from(child, word, index + 1, len)
-      if result && child.children.is_empty() && not(child.is_end) {
+      if result && child.children.is_empty() && !child.is_end {
         node.children.remove(ch)
       }
       result
@@ -117,8 +123,13 @@ fn Trie::remove_from(
   }
 }
 
+///|
 /// Find all words with the given prefix, up to `limit` matches.
-pub fn Trie::autocomplete(self : Trie, prefix : String, limit : Int) -> Array[String] {
+pub fn Trie::autocomplete(
+  self : Trie,
+  prefix : String,
+  limit : Int,
+) -> Array[String] {
   let result = []
   match self.search_node(prefix) {
     Some(node) => self.collect_words(node, prefix, result, limit)
@@ -127,6 +138,7 @@ pub fn Trie::autocomplete(self : Trie, prefix : String, limit : Int) -> Array[St
   result
 }
 
+///|
 fn Trie::collect_words(
   self : Trie,
   node : TrieNode,
@@ -151,11 +163,13 @@ fn Trie::collect_words(
   }
 }
 
+///|
 /// Return all words in the Trie.
 pub fn Trie::to_array(self : Trie) -> Array[String] {
   self.autocomplete("", self.size)
 }
 
+///|
 fn Trie::search_node(self : Trie, word : String) -> TrieNode? {
   let mut node = self.root
   let len = word.length()
@@ -169,12 +183,14 @@ fn Trie::search_node(self : Trie, word : String) -> TrieNode? {
   Some(node)
 }
 
+///|
 /// Clear all entries from the Trie.
 pub fn Trie::clear(self : Trie) -> Unit {
   self.root = new_node()
   self.size = 0
 }
 
+///|
 /// Implement `Show` for display.
 pub impl Show for Trie with fn output(self, logger) -> Unit {
   logger.write_string("Trie(words=")

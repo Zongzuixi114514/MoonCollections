@@ -1,14 +1,15 @@
+///|
 /// UnionFind — disjoint-set data structure with path compression and union by rank.
 ///
 /// Supports efficient union and find operations, useful for graph connectivity,
 /// Kruskal's MST algorithm, and dynamic connectivity problems.
-
 struct UnionFind {
   parent : Array[Int]
   rank : Array[Int]
   mut set_count : Int
 }
 
+///|
 /// Create a new UnionFind with `n` elements (0 to n-1), each in its own set.
 pub fn UnionFind::new(n : Int) -> UnionFind {
   {
@@ -18,6 +19,7 @@ pub fn UnionFind::new(n : Int) -> UnionFind {
   }
 }
 
+///|
 /// Find the root element of the set containing `x`, with path compression.
 pub fn UnionFind::find(self : UnionFind, x : Int) -> Int {
   let mut cur = x
@@ -28,6 +30,7 @@ pub fn UnionFind::find(self : UnionFind, x : Int) -> Int {
   cur
 }
 
+///|
 /// Union the sets containing `x` and `y`. Returns `true` if they were in
 /// different sets, `false` if already in the same set.
 pub fn UnionFind::union(self : UnionFind, x : Int, y : Int) -> Bool {
@@ -46,21 +49,25 @@ pub fn UnionFind::union(self : UnionFind, x : Int, y : Int) -> Bool {
   true
 }
 
+///|
 /// Check if `x` and `y` are in the same set.
 pub fn UnionFind::connected(self : UnionFind, x : Int, y : Int) -> Bool {
   self.find(x) == self.find(y)
 }
 
+///|
 /// Return the number of disjoint sets.
 pub fn UnionFind::count(self : UnionFind) -> Int {
   self.set_count
 }
 
+///|
 /// Return the number of elements.
 pub fn UnionFind::length(self : UnionFind) -> Int {
   self.parent.length()
 }
 
+///|
 /// Return the size of the set containing `x`.
 pub fn UnionFind::size(self : UnionFind, x : Int) -> Int {
   let root = self.find(x)
@@ -73,6 +80,7 @@ pub fn UnionFind::size(self : UnionFind, x : Int) -> Int {
   count
 }
 
+///|
 /// Return a list of all roots (one per set).
 pub fn UnionFind::roots(self : UnionFind) -> Array[Int] {
   let result = []
@@ -84,6 +92,7 @@ pub fn UnionFind::roots(self : UnionFind) -> Array[Int] {
   result
 }
 
+///|
 /// Reset all elements to their own singleton sets.
 pub fn UnionFind::reset(self : UnionFind) -> Unit {
   let n = self.parent.length()
@@ -94,6 +103,7 @@ pub fn UnionFind::reset(self : UnionFind) -> Unit {
   self.set_count = n
 }
 
+///|
 /// Implement `Show` for display.
 pub impl Show for UnionFind with fn output(self, logger) -> Unit {
   logger.write_string("UnionFind(sets=")

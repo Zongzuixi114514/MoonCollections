@@ -13,7 +13,7 @@ A data structure library for MoonBit, providing 7 core modules:
 ## Installation
 
 ```bash
-moon add CC488/mooncollections
+moon add Zongzuixi114514/mooncollections
 ```
 
 ## Quick Start
