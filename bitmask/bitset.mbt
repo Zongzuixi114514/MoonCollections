@@ -351,6 +351,11 @@ pub fn BitSet::iter(self : BitSet) -> Iter[Int] {
 
 ///|
 /// Implement `Show` for display.
+pub impl Show for BitSet with fn output(self, logger) -> Unit {
+  logger.write_string("BitSet::new(")
+  logger.write_string(self.len.to_string())
+  logger.write_string(")")
+}
 
 ///|
 /// Implement `Eq` for comparing two BitSets. Two BitSets are equal if they

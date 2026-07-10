@@ -6,19 +6,20 @@
 /// unknown upper bounds.
 struct BitVec {
   data : Array[Byte]
+  mut len : Int
 }
 
 ///|
 /// Create a new, empty BitVec.
 pub fn BitVec::new() -> BitVec {
-  { data: [] }
+  { data: [], len: 0 }
 }
 
 ///|
 /// Create a BitVec with initial capacity for `n` bits.
 pub fn BitVec::with_capacity(n : Int) -> BitVec {
   let byte_count = (n + 7) / 8
-  { data: Array::makei(byte_count, fn(_) { b'\x00' }) }
+  { data: Array::makei(byte_count, fn(_) { b'\x00' }), len: 0 }
 }
 
 ///|
@@ -156,3 +157,10 @@ fn BitVec::ensure_capacity(self : BitVec, index : Int) -> Unit {
 
 ///|
 /// Implement `Show` for display.
+pub impl Show for BitVec with fn output(self, logger) -> Unit {
+  logger.write_string("BitVec(cap=")
+  logger.write_string(self.capacity().to_string())
+  logger.write_string(", count=")
+  logger.write_string(self.count().to_string())
+  logger.write_string(")")
+}

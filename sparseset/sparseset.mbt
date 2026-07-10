@@ -107,3 +107,8 @@ pub fn SparseSet::to_array(self : SparseSet) -> Array[Int] {
 
 ///|
 /// Implement `Show` for display.
+pub impl Show for SparseSet with fn output(self, logger) -> Unit {
+  logger.write_string("SparseSet(count=")
+  logger.write_string(self.count.to_string())
+  logger.write_string(")")
+}
