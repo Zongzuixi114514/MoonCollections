@@ -1,6 +1,12 @@
-// import {
-//   "Zongzuixi114514/mooncollections" @lib,
-// }
+import {
+  "Zongzuixi114514/mooncollections/indexmap",
+  "Zongzuixi114514/mooncollections/orderedset",
+  "Zongzuixi114514/mooncollections/bitmask",
+  "Zongzuixi114514/mooncollections/bloomfilter",
+  "Zongzuixi114514/mooncollections/lrucache",
+  "Zongzuixi114514/mooncollections/unionfind",
+  "Zongzuixi114514/mooncollections/countmap",
+}
 
 options(
   "is-main": true,

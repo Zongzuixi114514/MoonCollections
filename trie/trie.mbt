@@ -3,7 +3,7 @@
 ///
 /// Supports insertion, deletion, prefix search, and autocomplete suggestions.
 /// Uses Int keys (character codes) for HashMap compatibility.
-struct TrieNode {
+priv struct TrieNode {
   children : @hashmap.HashMap[Int, TrieNode]
   mut is_end : Bool
   mut count : Int
@@ -192,8 +192,3 @@ pub fn Trie::clear(self : Trie) -> Unit {
 
 ///|
 /// Implement `Show` for display.
-pub impl Show for Trie with fn output(self, logger) -> Unit {
-  logger.write_string("Trie(words=")
-  logger.write_string(self.size.to_string())
-  logger.write_string(")")
-}

@@ -41,14 +41,14 @@ test "get index" {
   assert_eq(s.get_index(0), Some("a"))
   assert_eq(s.get_index(1), Some("b"))
   assert_eq(s.get_index(2), Some("c"))
-  assert_eq(s.get_index(3), None)
+  assert_true(s.get_index(3) is None)
 }
 
 ///|
 test "first and last" {
   let s : @orderedset.OrderedSet[String] = @orderedset.OrderedSet::new()
-  assert_eq(s.first(), None)
-  assert_eq(s.last(), None)
+  assert_true(s.first() is None)
+  assert_true(s.last() is None)
   s.add("first") |> ignore
   s.add("last") |> ignore
   assert_eq(s.first(), Some("first"))

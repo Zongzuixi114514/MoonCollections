@@ -111,5 +111,5 @@ test "max bit" {
 ///|
 test "max bit empty" {
   let bv = @bitvec.BitVec::new()
-  assert_eq(bv.max_bit(), None)
+  assert_true(bv.max_bit() is None)
 }

@@ -92,7 +92,7 @@ test "most common" {
 ///|
 test "most common empty" {
   let cm : @countmap.CountMap[String] = @countmap.CountMap::new()
-  assert_eq(cm.most_common(), None)
+  assert_true(cm.most_common() is None)
 }
 
 ///|

@@ -15,7 +15,7 @@ test "set and get" {
   assert_eq(m.get("one"), Some(1))
   assert_eq(m.get("two"), Some(2))
   assert_eq(m.get("three"), Some(3))
-  assert_eq(m.get("four"), None)
+  assert_true(m.get("four") is None)
 }
 
 ///|
@@ -62,8 +62,8 @@ test "get index" {
 test "get index out of bounds" {
   let m : @indexmap.IndexMap[String, Int] = @indexmap.IndexMap::new()
   m.set("key", 1)
-  assert_eq(m.get_index(1), None)
-  assert_eq(m.get_index(-1), None)
+  assert_true(m.get_index(1) is None)
+  assert_true(m.get_index(-1) is None)
 }
 
 ///|
@@ -73,7 +73,7 @@ test "get key by index" {
   m.set("b", 2)
   assert_eq(m.get_key(0), Some("a"))
   assert_eq(m.get_key(1), Some("b"))
-  assert_eq(m.get_key(2), None)
+  assert_true(m.get_key(2) is None)
 }
 
 ///|
@@ -83,7 +83,7 @@ test "get value by index" {
   m.set("y", 20)
   assert_eq(m.get_value(0), Some(10))
   assert_eq(m.get_value(1), Some(20))
-  assert_eq(m.get_value(5), None)
+  assert_true(m.get_value(5) is None)
 }
 
 ///|
@@ -138,7 +138,7 @@ test "remove preserves order" {
 test "remove non-existent" {
   let m : @indexmap.IndexMap[String, Int] = @indexmap.IndexMap::new()
   m.set("a", 1)
-  assert_eq(m.remove("b"), None)
+  assert_true(m.remove("b") is None)
   assert_eq(m.length(), 1)
 }
 
@@ -171,8 +171,8 @@ test "shift remove preserves order" {
 ///|
 test "first and last" {
   let m : @indexmap.IndexMap[String, Int] = @indexmap.IndexMap::new()
-  assert_eq(m.first(), None)
-  assert_eq(m.last(), None)
+  assert_true(m.first() is None)
+  assert_true(m.last() is None)
   m.set("first", 1)
   m.set("last", 2)
   assert_eq(m.first(), Some(("first", 1)))
@@ -195,7 +195,7 @@ test "clear" {
   m.clear()
   assert_true(m.is_empty())
   assert_eq(m.length(), 0)
-  assert_eq(m.get("a"), None)
+  assert_true(m.get("a") is None)
 }
 
 ///|
@@ -400,7 +400,7 @@ test "pop" {
   let first = m.pop()
   assert_eq(first, Some(("a", 1)))
   assert_eq(m.length(), 0)
-  assert_eq(m.pop(), None)
+  assert_true(m.pop() is None)
 }
 
 ///|

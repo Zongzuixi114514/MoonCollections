@@ -10,6 +10,15 @@ struct BloomFilter {
 }
 
 ///|
+fn pow_float(base : Double, exp : Int) -> Double {
+  if exp <= 0 {
+    1.0
+  } else {
+    base * pow_float(base, exp - 1)
+  }
+}
+
+///|
 fn hash_i(key_hash : Int, seed : Int) -> Int {
   let h = key_hash ^ (seed * 0x9E3779B9)
   h ^ (h >> 16)
@@ -136,7 +145,7 @@ pub fn BloomFilter::estimated_fpr(self : BloomFilter) -> Double {
   let total = self.bit_count.to_double()
   let proportion = set / total
   let k = self.hash_count.to_double()
-  proportion.pow(k)
+  pow_float(proportion, k.to_int())
 }
 
 ///|
@@ -149,12 +158,3 @@ pub fn BloomFilter::clear(self : BloomFilter) -> Unit {
 
 ///|
 /// Implement `Show` for display.
-pub impl Show for BloomFilter with fn output(self, logger) -> Unit {
-  logger.write_string("BloomFilter(bits=")
-  logger.write_string(self.bit_count.to_string())
-  logger.write_string(", hashes=")
-  logger.write_string(self.hash_count.to_string())
-  logger.write_string(", set=")
-  logger.write_string(self.set_bits().to_string())
-  logger.write_string(")")
-}

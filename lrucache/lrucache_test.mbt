@@ -13,7 +13,7 @@ test "put and get" {
   cache.put("b", 2)
   assert_eq(cache.get("a"), Some(1))
   assert_eq(cache.get("b"), Some(2))
-  assert_eq(cache.get("c"), None)
+  assert_true(cache.get("c") is None)
 }
 
 ///|
@@ -22,7 +22,7 @@ test "evict lru" {
   cache.put("a", 1)
   cache.put("b", 2)
   cache.put("c", 3)
-  assert_eq(cache.get("a"), None)
+  assert_true(cache.get("a") is None)
   assert_eq(cache.get("b"), Some(2))
   assert_eq(cache.get("c"), Some(3))
 }
@@ -35,7 +35,7 @@ test "get updates lru order" {
   let _ = cache.get("a")
   cache.put("c", 3)
   assert_eq(cache.get("a"), Some(1))
-  assert_eq(cache.get("b"), None)
+  assert_true(cache.get("b") is None)
   assert_eq(cache.get("c"), Some(3))
 }
 
@@ -55,7 +55,7 @@ test "put existing updates lru order" {
   cache.put("b", 2)
   cache.put("a", 10)
   cache.put("c", 3)
-  assert_eq(cache.get("b"), None)
+  assert_true(cache.get("b") is None)
   assert_eq(cache.get("a"), Some(10))
   assert_eq(cache.get("c"), Some(3))
 }
@@ -67,7 +67,7 @@ test "peek does not update order" {
   cache.put("b", 2)
   let _ = cache.peek("a")
   cache.put("c", 3)
-  assert_eq(cache.get("a"), None)
+  assert_true(cache.get("a") is None)
   assert_eq(cache.get("b"), Some(2))
   assert_eq(cache.get("c"), Some(3))
 }
@@ -79,7 +79,7 @@ test "remove" {
   cache.put("b", 2)
   assert_eq(cache.remove("a"), Some(1))
   assert_eq(cache.length(), 1)
-  assert_eq(cache.get("a"), None)
+  assert_true(cache.get("a") is None)
 }
 
 ///|
@@ -131,9 +131,9 @@ test "set capacity shrink" {
   cache.put("e", 5)
   cache.set_capacity(2)
   assert_eq(cache.length(), 2)
-  assert_eq(cache.get("a"), None)
-  assert_eq(cache.get("b"), None)
-  assert_eq(cache.get("c"), None)
+  assert_true(cache.get("a") is None)
+  assert_true(cache.get("b") is None)
+  assert_true(cache.get("c") is None)
   assert_eq(cache.get("d"), Some(4))
   assert_eq(cache.get("e"), Some(5))
 }
@@ -159,6 +159,6 @@ test "capacity 1" {
   cache.put("a", 1)
   cache.put("b", 2)
   assert_eq(cache.length(), 1)
-  assert_eq(cache.get("a"), None)
+  assert_true(cache.get("a") is None)
   assert_eq(cache.get("b"), Some(2))
 }

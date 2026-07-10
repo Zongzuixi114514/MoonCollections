@@ -105,10 +105,3 @@ pub fn UnionFind::reset(self : UnionFind) -> Unit {
 
 ///|
 /// Implement `Show` for display.
-pub impl Show for UnionFind with fn output(self, logger) -> Unit {
-  logger.write_string("UnionFind(sets=")
-  logger.write_string(self.set_count.to_string())
-  logger.write_string(", elements=")
-  logger.write_string(self.parent.length().to_string())
-  logger.write_string(")")
-}

@@ -17,7 +17,7 @@ test "push and pop" {
   assert_eq(rb.pop(), Some(1))
   assert_eq(rb.pop(), Some(2))
   assert_eq(rb.pop(), Some(3))
-  assert_eq(rb.pop(), None)
+  assert_true(rb.pop() is None)
 }
 
 ///|
@@ -58,7 +58,7 @@ test "clear" {
   rb.push(2)
   rb.clear()
   assert_eq(rb.length(), 0)
-  assert_eq(rb.pop(), None)
+  assert_true(rb.pop() is None)
 }
 
 ///|
