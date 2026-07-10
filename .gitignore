@@ -4,4 +4,4 @@ target/
 target
 .mooncakes/
 .moonagent/
-**/pkg.generated.mbti**/pkg.generated.mbti
+**/pkg.generated.mbti
