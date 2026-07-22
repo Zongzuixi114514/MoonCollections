@@ -1,0 +1,29 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Zongzuixi114514/mooncollections/lrucache"
+
+// Values
+
+// Errors
+
+// Types and methods
+type LRUCache[K, V]
+pub fn[K, V] LRUCache::capacity(Self[K, V]) -> Int
+pub fn[K : Hash + Eq, V] LRUCache::clear(Self[K, V]) -> Unit
+pub fn[K : Hash + Eq, V] LRUCache::contains(Self[K, V], K) -> Bool
+pub fn[K : Hash + Eq, V] LRUCache::get(Self[K, V], K) -> V?
+pub fn[K, V] LRUCache::is_empty(Self[K, V]) -> Bool
+pub fn[K : Hash + Eq, V] LRUCache::iter(Self[K, V]) -> Iter[(K, V)]
+pub fn[K, V] LRUCache::length(Self[K, V]) -> Int
+pub fn[K : Hash + Eq, V] LRUCache::lru(Self[K, V]) -> (K, V)?
+pub fn[K : Hash + Eq, V] LRUCache::mru(Self[K, V]) -> (K, V)?
+pub fn[K : Hash + Eq, V] LRUCache::new(Int) -> Self[K, V]
+pub fn[K : Hash + Eq, V] LRUCache::peek(Self[K, V], K) -> V?
+pub fn[K : Hash + Eq, V] LRUCache::put(Self[K, V], K, V) -> Unit
+pub fn[K : Hash + Eq, V] LRUCache::remove(Self[K, V], K) -> V?
+pub fn[K : Hash + Eq, V] LRUCache::set_capacity(Self[K, V], Int) -> Unit
+pub impl[K, V] Show for LRUCache[K, V]
+
+// Type aliases
+
+// Traits
+

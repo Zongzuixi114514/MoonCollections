@@ -1,0 +1,33 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Zongzuixi114514/mooncollections/countmap"
+
+// Values
+
+// Errors
+
+// Types and methods
+type CountMap[K]
+pub fn[K : Hash + Eq] CountMap::add(Self[K], K, Int) -> Int
+pub fn[K : Hash + Eq] CountMap::clear(Self[K]) -> Unit
+pub fn[K : Hash + Eq] CountMap::contains(Self[K], K) -> Bool
+pub fn[K : Hash + Eq] CountMap::decrement(Self[K], K) -> Int
+pub fn[K] CountMap::entropy(Self[K]) -> Double
+pub fn[K : Hash + Eq] CountMap::from_array(Array[K]) -> Self[K]
+pub fn[K : Hash + Eq] CountMap::get(Self[K], K) -> Int
+pub fn[K : Hash + Eq] CountMap::increment(Self[K], K) -> Int
+pub fn[K] CountMap::is_empty(Self[K]) -> Bool
+pub fn[K] CountMap::iter(Self[K]) -> Iter[(K, Int)]
+pub fn[K] CountMap::length(Self[K]) -> Int
+pub fn[K : Hash + Eq] CountMap::merge(Self[K], Self[K]) -> Unit
+pub fn[K] CountMap::most_common(Self[K]) -> K?
+pub fn[K] CountMap::most_common_n(Self[K], Int) -> Array[(K, Int)]
+pub fn[K : Hash + Eq] CountMap::new() -> Self[K]
+pub fn[K : Hash + Eq] CountMap::remove(Self[K], K) -> Unit
+pub fn[K : Hash + Eq] CountMap::set(Self[K], K, Int) -> Unit
+pub fn[K] CountMap::total(Self[K]) -> Int
+pub impl[K] Show for CountMap[K]
+
+// Type aliases
+
+// Traits
+

@@ -1,0 +1,45 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Zongzuixi114514/mooncollections/bitmask"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+type BitSet derive(@debug.Debug)
+pub fn BitSet::all(Self) -> Bool
+pub fn BitSet::any(Self) -> Bool
+pub fn BitSet::clear(Self, Int) -> Unit
+pub fn BitSet::clear_all(Self) -> Unit
+pub fn BitSet::complement(Self) -> Self
+pub fn BitSet::count(Self) -> Int
+pub fn BitSet::count_zeros(Self) -> Int
+pub fn BitSet::difference(Self, Self) -> Self
+pub fn BitSet::fill(Self) -> Unit
+pub fn BitSet::from_indices(Array[Int], Int) -> Self
+pub fn BitSet::has(Self, Int) -> Bool
+pub fn BitSet::intersect(Self, Self) -> Self
+pub fn BitSet::is_disjoint(Self, Self) -> Bool
+pub fn BitSet::is_empty(Self) -> Bool
+pub fn BitSet::is_subset(Self, Self) -> Bool
+pub fn BitSet::is_superset(Self, Self) -> Bool
+pub fn BitSet::iter(Self) -> Iter[Int]
+pub fn BitSet::length(Self) -> Int
+pub fn BitSet::new(Int) -> Self
+pub fn BitSet::resize(Self, Int) -> Self
+pub fn BitSet::set(Self, Int) -> Unit
+pub fn BitSet::symmetric_difference(Self, Self) -> Self
+pub fn BitSet::to_array(Self) -> Array[Int]
+pub fn BitSet::toggle(Self, Int) -> Unit
+pub fn BitSet::union(Self, Self) -> Self
+pub impl Eq for BitSet
+pub impl Show for BitSet
+
+// Type aliases
+
+// Traits
+

@@ -1,0 +1,25 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Zongzuixi114514/mooncollections/trie"
+
+// Values
+
+// Errors
+
+// Types and methods
+type Trie
+pub fn Trie::autocomplete(Self, String, Int) -> Array[String]
+pub fn Trie::clear(Self) -> Unit
+pub fn Trie::contains(Self, String) -> Bool
+pub fn Trie::count_prefix(Self, String) -> Int
+pub fn Trie::insert(Self, String) -> Bool
+pub fn Trie::length(Self) -> Int
+pub fn Trie::new() -> Self
+pub fn Trie::remove(Self, String) -> Bool
+pub fn Trie::starts_with(Self, String) -> Bool
+pub fn Trie::to_array(Self) -> Array[String]
+pub impl Show for Trie
+
+// Type aliases
+
+// Traits
+
