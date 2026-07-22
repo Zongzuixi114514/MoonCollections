@@ -8,6 +8,4 @@ import {
   "Zongzuixi114514/mooncollections/countmap",
 }
 
-options(
-  "is-main": true,
-)
+pkgtype(kind: "executable")
