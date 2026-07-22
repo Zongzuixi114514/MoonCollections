@@ -109,7 +109,7 @@ pub fn[K] CountMap::iter(self : CountMap[K]) -> Iter[(K, Int)] {
 
 ///|
 /// Return the key with the highest count. If multiple tie, one is returned arbitrarily.
-pub fn[K : Hash + Eq] CountMap::most_common(self : CountMap[K]) -> K? {
+pub fn[K] CountMap::most_common(self : CountMap[K]) -> K? {
   let mut max_key = None
   let mut max_count = 0
   for kv in self.inner.iter() {
@@ -124,7 +124,7 @@ pub fn[K : Hash + Eq] CountMap::most_common(self : CountMap[K]) -> K? {
 ///|
 /// Return the top `n` most common keys with their counts. If there are fewer than
 /// `n` distinct keys, all are returned. Results are sorted in descending count order.
-pub fn[K : Hash + Eq] CountMap::most_common_n(
+pub fn[K] CountMap::most_common_n(
   self : CountMap[K],
   n : Int,
 ) -> Array[(K, Int)] {
@@ -179,7 +179,7 @@ pub fn[K : Hash + Eq] CountMap::from_array(arr : Array[K]) -> CountMap[K] {
 
 ///|
 /// Calculate the Shannon entropy of the distribution.
-pub fn[K : Hash + Eq] CountMap::entropy(self : CountMap[K]) -> Double {
+pub fn[K] CountMap::entropy(self : CountMap[K]) -> Double {
   let total = self.total().to_double()
   guard total > 0.0 else { return 0.0 }
   let mut entropy = 0.0

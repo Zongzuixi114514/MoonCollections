@@ -8,7 +8,7 @@
 struct BitSet {
   data : Array[Byte]
   len : Int
-}
+} derive(Debug)
 
 ///|
 fn byte_index(index : Int) -> Int {

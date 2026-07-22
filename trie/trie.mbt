@@ -3,7 +3,7 @@
 ///
 /// Supports insertion, deletion, prefix search, and autocomplete suggestions.
 /// Uses Int keys (character codes) for HashMap compatibility.
-struct TrieNode {
+priv struct TrieNode {
   children : @hashmap.HashMap[Int, TrieNode]
   mut is_end : Bool
   mut count : Int

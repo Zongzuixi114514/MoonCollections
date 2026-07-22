@@ -6,13 +6,19 @@
 /// unknown upper bounds.
 struct BitVec {
   data : Array[Byte]
-  mut len : Int
+  len : Int
 }
 
 ///|
 /// Create a new, empty BitVec.
 pub fn BitVec::new() -> BitVec {
   { data: [], len: 0 }
+}
+
+///|
+/// Returns the number of bits in the vector.
+pub fn BitVec::len(self : BitVec) -> Int {
+  self.len
 }
 
 ///|

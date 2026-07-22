@@ -136,7 +136,7 @@ pub fn BloomFilter::estimated_fpr(self : BloomFilter) -> Double {
   let total = self.bit_count.to_double()
   let proportion = set / total
   let k = self.hash_count.to_double()
-  proportion.pow(k)
+  @math.pow(proportion, k)
 }
 
 ///|

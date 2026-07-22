@@ -192,7 +192,7 @@ test "eq" {
   let b : @orderedset.OrderedSet[Int] = @orderedset.OrderedSet::new()
   b.add(1) |> ignore
   b.add(2) |> ignore
-  assert_eq(a, b)
+  assert_true(a == b)
 }
 
 ///|
@@ -223,7 +223,7 @@ test "self union" {
   a.add(1) |> ignore
   a.add(2) |> ignore
   let c = a.union(a)
-  assert_eq(c, a)
+  assert_true(c == a)
 }
 
 ///|

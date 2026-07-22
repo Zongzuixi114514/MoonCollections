@@ -97,7 +97,7 @@ pub fn[K : Hash + Eq] OrderedSet::clear(self : OrderedSet[K]) -> Unit {
 
 ///|
 /// Return an iterator over elements in insertion order.
-pub fn[K : Hash + Eq] OrderedSet::iter(self : OrderedSet[K]) -> Iter[K] {
+pub fn[K] OrderedSet::iter(self : OrderedSet[K]) -> Iter[K] {
   self.inner.keys()
 }
 

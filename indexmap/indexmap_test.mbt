@@ -243,7 +243,7 @@ test "eq same" {
   let b : @indexmap.IndexMap[String, Int] = @indexmap.IndexMap::new()
   b.set("k1", 1)
   b.set("k2", 2)
-  assert_eq(a, b)
+  assert_true(a == b)
 }
 
 ///|
@@ -307,7 +307,7 @@ test "retain" {
   m.set("b", 10)
   m.set("c", 3)
   m.set("d", 10)
-  m.retain(fn(k, v) { v >= 5 })
+  m.retain(fn(_k, v) { v >= 5 })
   assert_eq(m.length(), 2)
   assert_true(m.contains("b"))
   assert_true(m.contains("d"))
@@ -322,7 +322,7 @@ test "retain preserves order" {
   m.set("y", 2)
   m.set("z", 3)
   m.set("w", 4)
-  m.retain(fn(k, v) { k != "y" && k != "w" })
+  m.retain(fn(k, _v) { k != "y" && k != "w" })
   assert_eq(m.length(), 2)
   assert_eq(m.get_index(0), Some(("x", 1)))
   assert_eq(m.get_index(1), Some(("z", 3)))
@@ -333,7 +333,7 @@ test "retain all" {
   let m : @indexmap.IndexMap[String, Int] = @indexmap.IndexMap::new()
   m.set("a", 1)
   m.set("b", 2)
-  m.retain(fn(k, v) { true })
+  m.retain(fn(_k, _v) { true })
   assert_eq(m.length(), 2)
 }
 
@@ -342,7 +342,7 @@ test "retain none" {
   let m : @indexmap.IndexMap[String, Int] = @indexmap.IndexMap::new()
   m.set("a", 1)
   m.set("b", 2)
-  m.retain(fn(k, v) { false })
+  m.retain(fn(_k, _v) { false })
   assert_eq(m.length(), 0)
 }
 
